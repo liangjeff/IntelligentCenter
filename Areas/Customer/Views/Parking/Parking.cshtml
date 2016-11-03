@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "CarParking";
+}
+@section Scripts{
+    @Scripts.Render("~/Angular/Customer/Controller/CarController.js")
+}
+
+<head>
+    <link href="~/Content/parking.css" rel="stylesheet" />
+</head>
+    
+<script>
+    angular.module('Spartan', ["kendo.directives"]);
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['Spartan']);
+    });
+
+    angular.module("Spartan").value("currentUserId", @Html.Raw(Json.Encode(ViewBag.CurrentUser.Id)));
+</script>
+
+<div ng-controller="carcontroller as ctrl" class="container" style="margin-top: 30px;">
+
+
+    <form class="form-horizontal">
+        <div class="form-group" >
+         
+
+                <div class="col-md-3" align="center">
+
+                    <i class="glyphicon glyphicon-bed " style="color: #f0ad4e"></i>
+
+                    <a class="btn btn-primary" role="button" data-toggle="collapse" href="#Parkedcars" aria-expanded="false" aria-controls="collapseExample">
+                        View your Cars
+                    </a>
+                </div>
+
+                <div class="col-md-3" align="center">
+
+                    <i class="glyphicon glyphicon-map-marker " style="color: #5cb85c"></i>
+
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#test" aria-expanded="false" aria-controls="collapseExample">
+                        View Carparks
+                    </button>
+                </div>
+                
+           
+</div>
+     
+       
+      
+    </form>
+
+    <div class="collapse" id="test">
+        <div class="well">
+            <form>
+                <div class="form-group">
+                    <div class="col-md-7" style="height: 500px;">
+                        <div id="map" style="height: 100%;"></div>
+                        <script>
+                            var map;
+
+                            function initMap() {
+                                var myLatLng = { lat: -33.892199, lng: 151.1772834 };
+
+                                map = new google.maps.Map(document.getElementById('map'),
+                                {
+                                    center: myLatLng,
+                                    zoom: 15
+                                });
+
+                                var marker = new google.maps.Marker({
+                                    position: myLatLng,
+                                    map: map,
+                                    title: 'Hello World!'
+                                });
+
+                                marker.setMap(map);
+
+                            }
+                        </script>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu2Gv_7D6IFK2wqXie76sZFCn-h5uzyv8&callback=initMap"
+                                async defer></script>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Carpark">
+                        Detail Infomation
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="Carpark" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Carpark</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                        <!-- Indicators -->
+                                        <ol class="carousel-indicators">
+                                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                           
+                                        </ol>
+                                        <!-- Wrapper for slides -->
+                                        <div class="carousel-inner" role="listbox" style="color: #d9534f">
+                                            <div class="item active">
+                                                <img style="height: 400px" class="img-rounded" src="~/Content/image/carpark.jpg" />  > 
+                                            </div>
+                                            <div class="item" style="color: #d9534f">
+                                                <img style="height: 400px" class="img-rounded" src="~/Content/image/mbs-map-carpark-entrances-2000x1400.jpg" />
+                                            </div>
+                                           
+                                        </div>
+                                        <!-- Controls -->
+                                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" style="color: #d9534f">
+                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" style="color: #d9534f">
+                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<div class="collapse" id="Parkedcars">
+    <div class="well">
+        <div class="row">
+            <div class="col-md-4">
+                <h1>Select your car</h1>
+            </div>
+            <div class="col-md-4">
+                <label for="carDropDown">Car</label>
+                <select id="carDropDown" name="carSelection" kendo-drop-down-list k-data-source="ctrl.carsDropDown" k-data-text-field="'Text'" k-data-value-field="'Value'" ng-model="ctrl.selectedCarId" k-on-change="ctrl.onCarSelectionChange(kendoEvent)"></select>
+            </div>
+        </div>
+
+
+
+        <div class="row" style="margin-top: 50px">
+            <div class="col-md-4">
+                <h2>CarName</h2>
+            </div>
+            <div class="col-md-4">
+                <h2><span class="label label-primary">{{ctrl.carParkingInfo.CarName}}</span></h2>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 50px">
+            <div class="col-md-4">
+                <h2>EnterTime</h2>
+            </div>
+            <div class="col-md-4">
+                <h2><span class="label label-primary">{{ctrl.carParkingInfo.EnterTime}}</span></h2>
+            </div>
+
+        </div>
+        <div class="row" style="margin-top: 50px">
+            <div class="col-md-4">
+                <h2>Fare</h2>
+            </div>
+            <div class="col-md-4">
+                <h2><span class="label label-danger">{{ctrl.carParkingInfo.Fare}}</span></h2>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 50px">
+            <div class="col-md-4">
+                <h2>Location</h2>
+            </div>
+            <div class="col-md-4">
+                <h2><span class="label label-danger">{{ctrl.carParkingInfo.Location}}</span></h2>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+

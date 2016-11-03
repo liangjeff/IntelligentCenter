@@ -1,0 +1,209 @@
+﻿@using IntelliTransCentre.Common
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @Resource.ApplicationName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular1.5.8")
+
+    <style>
+        body {
+            margin-top: 20px;
+        }
+
+        .glyphicon {
+            margin-right: 10px;
+        }
+
+        .panel-body {
+            padding: 0px;
+        }
+
+            .panel-body table tr td {
+                padding-left: 15px;
+            }
+
+            .panel-body .table {
+                margin-bottom: 0px;
+            }
+
+        .well h1 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, null)</li>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (ViewBag.CurrentUser.UserType == Resource.UserTypeManagement)
+                        {
+                            <li><a href="~/Management/">Management Portal</a></li>
+                        }
+                        else if (ViewBag.CurrentUser.UserType == Resource.UserTypeCustomer)
+                        {
+                            <li><a href="~/Customer/">Customer Portal</a></li>
+                        }
+                        else if (ViewBag.CurrentUser.UserType == Resource.UserTypeFacility)
+                        {
+                            <li><a href="~/Facility/">Facility Portal</a></li>
+                        }
+                    }
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    <span class="glyphicon glyphicon-folder-close">
+                                    </span>My carpark
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-pencil text-primary"></span><a href="~/Facility/Carparkinfo/Carparkinfo">My carpark</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-flash text-success"></span><a href="~/Facility/Carpark_Parkinginfo/Carpark_Parkinginfo">parked cars</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-file text-info"></span><a href="~/Facility/EntryRecord/EntryRecord">entry record</a>
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                    <span class="glyphicon glyphicon-th">
+                                    </span>parked cars
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <a href="~/Facility/Carpark_Parkinginfo/Carpark_Parkinginfo">cars</a> <span class="label label-success">320 Ava</span>
+                                        </td>
+                                    </tr>
+                                  
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                    <span class="glyphicon glyphicon-user">
+                                    </span>Rentry Record
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <table class="table"> 
+                                    <tr>
+                                        <td>
+                                            <a href="~/Facility/EntryRecord/EntryRecord">Entry Record</a> <span class="label label-info">5</span>
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                    <span class="glyphicon glyphicon-file">
+                                    </span>Reports
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-usd"></span><a href="http://www.jquery2dotnet.com">Sales</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-user"></span><a href="http://www.jquery2dotnet.com">Customers</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-tasks"></span><a href="http://www.jquery2dotnet.com">Products</a>
+                                        </td>
+                                    </tr> 
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-9">
+                <div class="well">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - @Resource.ApplicationName</p>
+        </footer>
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

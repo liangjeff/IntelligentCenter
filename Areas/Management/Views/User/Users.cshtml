@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Users";
+}
+@section Scripts{
+    @Scripts.Render("~/Angular/Management/Controller/UserCtrl.js")
+}
+
+<script>
+    angular.module('Spartan', ["kendo.directives"]);
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['Spartan']);
+    });
+</script>
+
+<div ng-controller="userController as ctrl">
+    <div id="userGrid" style="height: 450px;" kendo-grid options="ctrl.mainGridOptions()"></div>
+</div>

@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Carparkinfo";
+}
+@section Scripts{
+    @Scripts.Render("~/Angular/Facility/EntryRecordController.js")
+}
+<script>
+    angular.module('Spartan', ["kendo.directives"]);
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['Spartan']);
+    });
+
+    angular.module("Spartan").value("currentUserId", @Html.Raw(Json.Encode(ViewBag.CurrentUser.Id)));
+</script>
+
+<div ng-controller="entryrecordcontroller as ctrl">
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr style="height: 10px">
+                
+                <th class="danger, text-center"scope="row">DoorName</th>
+                <th class="text-center">TimeStamp</th>
+                <th class="text-center">CarNumber</th>
+                <th class="text-center">EntryStatus</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+
+        <tr ng-repeat="item in ctrl.EntryRecordDataSource">
+            <td><h3><span class="text-info">{{item.DoorName}}</span></h3></td>
+            <td><h3><span class="text-info">{{item.TimeStamp}}</span></h3></td>
+            <td><h3><span class="text-info">{{item.CarNumber}}</span></h3></td>
+            <td><h3><span class="text-info">{{item.EntryStatus}}</span></h3></td>
+            
+           
+           
+           
+            
+           
+    
+
+        </tr>
+      
+            
+
+    </table>
+   
+
+   
+</div>

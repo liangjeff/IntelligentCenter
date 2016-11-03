@@ -1,0 +1,222 @@
+﻿@using IntelliTransCentre.Common
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @Resource.ApplicationName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular1.5.8")
+    <style>
+        body {
+            margin-top: 20px;
+        }
+
+        .glyphicon {
+             margin-right:10px;
+        }
+
+        .panel-body {
+             padding:0px;
+        }
+
+        .panel-body table tr td {
+             padding-left: 15px
+        }
+
+        .panel-body .table {
+            margin-bottom: 0px;
+        }
+
+        .panel-body .table .sub-title {
+            border-left: 4px solid darkturquoise;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, null)</li>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (ViewBag.CurrentUser.UserType == Resource.UserTypeManagement)
+                        {
+                            <li><a href="~/Management/">Management Portal</a></li>
+                        }
+                        else if (ViewBag.CurrentUser.UserType == Resource.UserTypeCustomer)
+                        {
+                            <li><a href="~/Customer/">Customer Portal</a></li>
+                        }
+                        else if (ViewBag.CurrentUser.UserType == Resource.UserTypeFacility)
+                        {
+                            <li><a href="~/Facility/">Facility Portal</a></li>
+                        }
+                    }
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    <span class="glyphicon glyphicon-home">
+                                    </span>Home Page
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse @((ViewBag.Title ?? "").Equals("Home") ? "in" : "")">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td class="@((ViewBag.Title ?? "").Equals("Home") ? "sub-title" : "")">
+                                            <span class="glyphicon glyphicon-home text-primary"></span><a href="~/Management">Home</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                    <span class="glyphicon glyphicon-th">
+                                    </span>Cars
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse @((ViewBag.Title ?? "").Equals("IoT") ? "in" : "")">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td class="@((ViewBag.Title ?? "").Equals("Devices") ? "sub-title" : "")">
+                                            <a href="~/Management/IoT/IoT">Cars</a> <span class="label label-success">10</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                    <span class="glyphicon glyphicon-folder-close">
+                                    </span>Carparks
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse @((ViewBag.Title ?? "").Equals("Facility") ? "in" : "")">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td class="@((ViewBag.Title ?? "").Equals("Facilities") ? "sub-title" : "")">
+                                            <a href="~/Management/Facility/Facility">Carparks</a> <span class="label label-success">10</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                    <span class="glyphicon glyphicon-user">
+                                    </span>Customers
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse @((ViewBag.Title ?? "").Equals("Users") ? "in" : "")">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td class="@((ViewBag.Title ?? "").Equals("Users") ? "sub-title" : "")">
+                                            <span class="glyphicon glyphicon-th-list"></span><a href="~/Management/User/Users">View</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="@((ViewBag.Title ?? "").Equals("Customers") ? "sub-title" : "")">
+                                            <a href="~/Management/User/Users">unread requests</a> <span class="label label-info">5</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="@((ViewBag.Title ?? "").Equals("Import/Export") ? "sub-title" : "")">
+                                            <a href="~/Management/User/Users">Import/Export</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="@((ViewBag.Title ?? "").Equals("Delete Account") ? "sub-title" : "")">
+                                            <span class="glyphicon glyphicon-trash text-danger"></span><a href="~/Management/User/Users" class="text-danger">
+                                                Delete Account
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                                    <span class="glyphicon glyphicon-cog">
+                                    </span>Settings
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFive" class="panel-collapse collapse @((ViewBag.Title ?? "").Equals("Settings") ? "in" : "")">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td class="@((ViewBag.Title ?? "").Equals("Settings") ? "sub-title" : "")">
+                                            <span class="glyphicon glyphicon-cog"></span><a href="~/Management/IoT/IoT">Settings</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9 well">
+                @RenderBody()
+            </div>
+        </div>
+        
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - @Resource.ApplicationName</p>
+        </footer>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

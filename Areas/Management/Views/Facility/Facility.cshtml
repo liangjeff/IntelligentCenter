@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Users";
+}
+@section Scripts{
+    @Scripts.Render("~/Angular/Management/Controller/FacilityCtrl.js")
+}
+
+<script>
+    angular.module('Spartan', ["kendo.directives"]);
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['Spartan']);
+    });
+</script>
+
+<div ng-controller="facilitycontroller as ctrl">
+    <div id="userGrid" style="height: 450px;" kendo-grid options="ctrl.mainGridOptions()"></div>
+    <span>{{ctrl.gridDatasource.data()[0].Name}}</span>
+    <span>{{ctrl.gridDatasource[0].Name}}</span>
+    <span>{{ctrl.gridDatasource[0].Name}}</span>
+    <span>{{ctrl.gridDatasource[0].Name}}</span>
+    <span>{{12345654654654654654654}}</span>
+</div>

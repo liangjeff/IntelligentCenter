@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Account";
+}
+@section Scripts{
+    @Scripts.Render("~/Angular/Customer/Controller/UserAccountController.js")
+}
+<script>
+    angular.module('Spartan', ["kendo.directives"]);
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['Spartan']);
+    });
+
+    angular.module("Spartan").value("currentUserId", @Html.Raw(Json.Encode(ViewBag.CurrentUser.Id)));
+</script>
+
+<div ng-controller="useraccountcontroller as ctrl">
+
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#My Account" aria-controls="home" role="tab" data-toggle="tab">My Account</a></li>
+            <li role="presentation"><a href="#TransactionRecord" aria-controls="profile" role="tab" data-toggle="tab">Transaction Record</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Account type and detailes</a></li>
+        
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="My Account">
+
+                <h3>My Account</h3>
+                <div id="AccountGridOptions" style="height: 450px;" kendo-grid options="ctrl.AccountGridOptions()"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="TransactionRecord">
+                
+                <h3>My Transaction</h3>
+                <div id="TransactionGridOptions" style="height: 450px;" kendo-grid options="ctrl.TransactionGridOptions()"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="messages">
+
+                <h2>you are currently at level VIP1</h2>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal"   >
+                    Upgrate your plan now
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">plan upgrate</h4>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+</div>
+

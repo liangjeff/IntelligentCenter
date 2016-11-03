@@ -1,0 +1,240 @@
+﻿@{
+    ViewBag.Title = "Carparkinfo";
+}
+@section Scripts{
+    @Scripts.Render("~/Angular/Facility/CarparkinfoController.js")
+}
+<script>
+    angular.module('Spartan', ["kendo.directives"]);
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['Spartan']);
+    });
+
+    angular.module("Spartan").value("currentUserId", @Html.Raw(Json.Encode(ViewBag.CurrentUser.Id)));
+
+        
+                                           
+</script>
+
+<div ng-controller="carparkindfocontroller as ctrl">
+  
+    @*<div id="CarparkGridOptions" style="height: 450px;" kendo-grid options="ctrl.CarparkGridOptions()"></div>*@
+    <div>
+        <table class="table table-condensed">
+            <thead>
+            <tr style="height: 10px">
+                <th>#</th>
+                <th class="text-center"></th>
+                <th class="text-center"></th>
+                <th class="text-center"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="height: 80px">
+                <th scope="row">1</th>
+                <td style="width: 50px">
+                    <img style="height: 50px; width: 60px" src="~/Content/image/Name-your-situation.png" class="img-circle"/>
+                </td>
+                <td style="width: 50px">
+                   <h4><strong>Carpark Name</strong></h4>
+                </td>
+
+                <td class="text-center">
+                    
+                    <h3><span class="text-info">{{ctrl.carParkingInfo[0].Description}}</span></h3>
+                </td>
+            </tr>
+            <tr style="height: 80px">
+                <th scope="row">2</th>
+                <td style="width: 50px">
+                    <img style="height: 50px; width: 60px" img src="~/Content/image/location.jpg" class="img-circle"/>
+                </td>
+                <td style="width: 50px">
+                    <h4><strong>Location</strong></h4>
+                </td>
+
+                <td class="text-center">
+
+                    <h3><span class="text-info">{{ctrl.carParkingInfo[0].Postcode}}</span></h3>
+                    <!-- Button trigger modal -->
+                    <span> View Details<i class='fa fa-eye' data-toggle="modal" data-target="#myModal"></i></span>
+                   
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Location</h4>
+                                </div>
+                                <div class="modal-body" style="height: 450px">
+                                    <div class="col-lg-8 col-md-8 col-sm-8" style="height: 400px;">
+                                        <div id="map" style="height: 100%;"></div>
+                                        <script>
+                                        var map;
+
+                                        function initMap() {
+                                        var myLatLng = { lat: -33.892199, lng: 151.1772834 };
+
+                                        map = new google.maps.Map(document.getElementById('map'),
+                                        {
+                                        center: myLatLng,
+                                        zoom: 15
+                                        });
+
+                                        var marker = new google.maps.Marker({
+                                        position: myLatLng,
+                                        map: map,
+                                        title: 'Hello World!'
+                                        });
+
+                                        marker.setMap(map);
+                                        }</script>
+                                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu2Gv_7D6IFK2wqXie76sZFCn-h5uzyv8&callback=initMap"
+                                                async defer></script>
+                                    </div>
+                                   
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+
+            <tr style="height: 80px">
+                <th scope="row">3</th>
+                <td style="width: 50px">
+                    <img style="height: 50px; width: 60px" img src="~/Content/image/images.jpg" class="img-circle"/>
+                </td>
+                <td style="width: 50px">
+                    <h4><strong>Contact Name</strong></h4>
+                </td>
+
+                <td class="text-center">
+
+                    <h3><span class="text-info">{{ctrl.carParkingInfo[0].ContactName}}</span></h3>
+                </td>
+            </tr>
+            <tr style="height: 80px">
+                <th scope="row">4</th>
+                <td style="width: 50px">
+                    <img style="height: 50px; width: 60px" img src="~/Content/image/phone.png" class="img-circle"/>
+                </td>
+                <td style="width: 50px">
+                    <h4><strong>Contact Number</strong></h4>
+                </td>
+
+                <td class="text-center">
+
+                    <h3><span class="text-info">{{ctrl.carParkingInfo[0].ContactNumber}}</span></h3>
+                </td>
+            </tr>
+            <tr style="height: 80px">
+                <th scope="row">5</th>
+                <td style="width: 50px">
+                    <img style="height: 50px; width: 60px" img src="~/Content/image/liscencenumber.jpg" class="img-circle"/>
+                </td>
+                <td style="width: 50px">
+                    <h4><strong>TotalParking Number</strong></h4>
+                </td>
+
+                <td class="text-center">
+
+                    <h3><span class="text-info">{{ctrl.carParkingInfo[0].TotalParkingSpace}}</span></h3>
+                </td>
+            </tr>
+                <tr style="height: 80px">
+                    <th scope="row">6</th>
+                    <td style="width: 50px">
+                        <img style="height: 50px; width: 60px" img src="~/Content/image/1436781507_6322.png" class="img-circle" />
+                    </td>
+                    <td style="width: 50px">
+                        <h4><strong>Rate</strong></h4>
+                    </td>
+
+                    <td class="text-center">
+
+                        @*<h3><span class="text-info">{{ctrl.carParkingInfo[0].Rate}}</span></h3>*@
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#MyRate">
+                            Rate Detail
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="MyRate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myRateLabel">Parking Rate</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr style="height: 10px">
+                                                    
+                                                    <th class="text-center">Description</th>
+                                                    <th class="text-center">FeeRate</th>
+                                                    <th class="text-center">LowerRangeBound</th>
+                                                    <th class="text-center">HigherRangeBound</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr ng-repeat="item in ctrl.RateDatasource">
+                                                    <td>{{ item.Description }}</td>
+                                                    <td>{{ item.FeeRate }}</td>
+                                                    <td>{{ item.RangeLowerBound }}</td>
+                                                    <td>{{ item.RangeUpperBound }}</td>
+
+                                                  
+
+                                                </tr>
+
+
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="height: 80px">
+                    <th scope="row">1</th>
+                    <td style="width: 50px">
+                        <img style="height: 50px; width: 60px" img src="~/Content/image/official-web-design-development-icon.png" class="img-circle" />
+                    </td>
+                    <td style="width: 50px">
+                        <h4><strong>Street Number</strong></h4>
+                    </td>
+
+                    <td class="text-center">
+
+                        <h3><span class="text-info">{{ctrl.carParkingInfo[0].CarNumber}}</span></h3>
+                    </td>
+                </tr>
+                
+                   
+                
+            
+            
+        </table>
+
+    </div>
+        
+      
+      
+    
+  
+</div>
