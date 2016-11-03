@@ -1,0 +1,1021 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SpartanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccountTransaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TransactionTypeId" Type="uniqueidentifier" />
+          <Property Name="PayFrom" Type="nvarchar" MaxLength="200" />
+          <Property Name="PayTo" Type="nvarchar" MaxLength="200" />
+          <Property Name="TransactionTime" Type="datetime" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="CarId" Type="uniqueidentifier" />
+          <Property Name="CarParkId" Type="uniqueidentifier" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="DurationInMinutes" Type="int" />
+          <Property Name="TotalAmount" Type="decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="CarType" Type="nvarchar" MaxLength="200" />
+          <Property Name="CarName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="HasBluetooth" Type="bit" />
+          <Property Name="HasWiFi" Type="bit" />
+          <Property Name="Revision" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="CarOwnership">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="CarId" Type="uniqueidentifier" />
+          <Property Name="ExpiryDate" Type="datetime" />
+          <Property Name="RegisteredBy" Type="uniqueidentifier" />
+          <Property Name="RegisteredDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CarPark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FacilityTypeId" Type="uniqueidentifier" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="CarParkTypeId" Type="uniqueidentifier" />
+          <Property Name="StreetNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="StreetName" Type="nvarchar" MaxLength="200" />
+          <Property Name="District" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Postcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="200" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="200" />
+          <Property Name="Altitude" Type="nvarchar" MaxLength="200" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContactPhoneNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="CarParkRateId" Type="uniqueidentifier" />
+          <Property Name="TotalPakingSpace" Type="int" />
+          <Property Name="DisableParkingSpace" Type="int" />
+          <Property Name="LargeParkingSpace" Type="int" />
+          <Property Name="SmallParkingSpace" Type="int" />
+          <Property Name="IsCharge" Type="bit" />
+          <Property Name="IsManual" Type="bit" />
+          <Property Name="IsPublic" Type="bit" />
+        </EntityType>
+        <EntityType Name="CarParkingSpace">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarParkId" Type="uniqueidentifier" />
+          <Property Name="ParkingSpaceId" Type="uniqueidentifier" />
+          <Property Name="CarId" Type="uniqueidentifier" />
+          <Property Name="ParkingStatus" Type="int" />
+          <Property Name="EnterTime" Type="datetime" />
+          <Property Name="LeaveTime" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IntelliTransCentre.dbo.carparkmanagement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="carparkmanagement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="userid" Type="uniqueidentifier" />
+          <Property Name="carparkid" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="CarParkRate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarParkId" Type="uniqueidentifier" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="FeeRate" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="RangeLowerBound" Type="int" />
+          <Property Name="RangeUpperBound" Type="int" />
+        </EntityType>
+        <EntityType Name="CarParkType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CustomerAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="AccountType" Type="nvarchar" MaxLength="100" />
+          <Property Name="AccountNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="ExpiryDate" Type="datetime" />
+          <Property Name="CVV" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Door">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarParkId" Type="uniqueidentifier" />
+          <Property Name="DoorTypeID" Type="uniqueidentifier" />
+          <Property Name="DoorName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="200" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="200" />
+          <Property Name="HasBluetooth" Type="bit" />
+          <Property Name="HasWifi" Type="bit" />
+          <Property Name="HasNFC" Type="bit" />
+          <Property Name="BluetoothMAC" Type="nvarchar" MaxLength="200" />
+          <Property Name="BluetoothCompanyId" Type="nvarchar" MaxLength="200" />
+          <Property Name="BluetoothUuid" Type="nvarchar" MaxLength="200" />
+          <Property Name="WiFiSsid" Type="nvarchar" MaxLength="200" />
+          <Property Name="WiFiMac" Type="nvarchar" MaxLength="200" />
+          <Property Name="WiFiPassword" Type="nvarchar" MaxLength="200" />
+          <Property Name="NFCMAC" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IotId" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DoorType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="EntryRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DoorId" Type="uniqueidentifier" />
+          <Property Name="CarId" Type="uniqueidentifier" />
+          <Property Name="EntryType" Type="int" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="EntryStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="FacilityType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ManageCarpark">
+          <Key>
+            <PropertyRef Name="CarparkId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarparkId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Map">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarParkId" Type="uniqueidentifier" />
+          <Property Name="MapFileId" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ParkingSpace">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarParkId" Type="uniqueidentifier" />
+          <Property Name="ParkingSpaceTypeId" Type="uniqueidentifier" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="200" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="200" />
+          <Property Name="ParkingTime" Type="datetime" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="CarId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="ParkingSpaceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ParkingSubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SubscriberType" Type="int" />
+          <Property Name="SubscriberId" Type="uniqueidentifier" />
+          <Property Name="SubscriptionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubscribedObjectType" Type="int" />
+          <Property Name="SubscribedObjectId" Type="uniqueidentifier" />
+          <Property Name="EffectiveDate" Type="datetime" />
+          <Property Name="Expiry" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TransactionType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Salt" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="20" />
+          <Property Name="PIN" Type="nvarchar" MaxLength="6" />
+          <Property Name="ResetPassword" Type="bit" />
+          <Property Name="PasswordResetCode" Type="uniqueidentifier" />
+          <Property Name="Role" Type="uniqueidentifier" />
+          <Property Name="Type" Type="nvarchar" MaxLength="10" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Salutation" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="LockToIP" Type="bit" />
+          <Property Name="IsTermsAndConditionsAccepted" Type="bit" />
+          <Property Name="TermsAndConditionsAcceptedDate" Type="datetime" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="LoginFailedCount" Type="int" />
+          <Property Name="LastLogin" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="UserTypeId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityContainer Name="SpartanModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountTransaction" EntityType="Self.AccountTransaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountType" EntityType="Self.AccountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarOwnership" EntityType="Self.CarOwnership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarPark" EntityType="Self.CarPark" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarParkingSpace" EntityType="Self.CarParkingSpace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarParkRate" EntityType="Self.CarParkRate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarParkType" EntityType="Self.CarParkType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerAccount" EntityType="Self.CustomerAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Door" EntityType="Self.Door" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoorType" EntityType="Self.DoorType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntryRecord" EntityType="Self.EntryRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FacilityType" EntityType="Self.FacilityType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManageCarpark" EntityType="Self.ManageCarpark" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Map" EntityType="Self.Map" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingSpace" EntityType="Self.ParkingSpace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingSpaceType" EntityType="Self.ParkingSpaceType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingSubscription" EntityType="Self.ParkingSubscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionType" EntityType="Self.TransactionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="carparkmanagement" EntityType="Self.carparkmanagement" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [carparkmanagement].[id] AS [id], 
+    [carparkmanagement].[userid] AS [userid], 
+    [carparkmanagement].[carparkid] AS [carparkid]
+    FROM [dbo].[carparkmanagement] AS [carparkmanagement]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SpartanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Salt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PIN" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="ResetPassword" Type="Boolean" />
+          <Property Name="PasswordResetCode" Type="Guid" />
+          <Property Name="Role" Type="Guid" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Salutation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LockToIP" Type="Boolean" />
+          <Property Name="IsTermsAndConditionsAccepted" Type="Boolean" />
+          <Property Name="TermsAndConditionsAcceptedDate" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LoginFailedCount" Type="Int32" />
+          <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedBy" Type="Guid" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="UserTypeId" Type="Guid" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="SpartanEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+          <EntitySet Name="AccountTransactions" EntityType="SpartanModel.AccountTransaction" />
+          <EntitySet Name="AccountTypes" EntityType="SpartanModel.AccountType" />
+          <EntitySet Name="Cars" EntityType="SpartanModel.Car" />
+          <EntitySet Name="CarOwnerships" EntityType="SpartanModel.CarOwnership" />
+          <EntitySet Name="CarParks" EntityType="SpartanModel.CarPark" />
+          <EntitySet Name="CarParkingSpaces" EntityType="SpartanModel.CarParkingSpace" />
+          <EntitySet Name="CarParkRates" EntityType="SpartanModel.CarParkRate" />
+          <EntitySet Name="CarParkTypes" EntityType="SpartanModel.CarParkType" />
+          <EntitySet Name="CustomerAccounts" EntityType="SpartanModel.CustomerAccount" />
+          <EntitySet Name="Doors" EntityType="SpartanModel.Door" />
+          <EntitySet Name="DoorTypes" EntityType="SpartanModel.DoorType" />
+          <EntitySet Name="EntryRecords" EntityType="SpartanModel.EntryRecord" />
+          <EntitySet Name="FacilityTypes" EntityType="SpartanModel.FacilityType" />
+          <EntitySet Name="Maps" EntityType="SpartanModel.Map" />
+          <EntitySet Name="ParkingSpaces" EntityType="SpartanModel.ParkingSpace" />
+          <EntitySet Name="ParkingSpaceTypes" EntityType="SpartanModel.ParkingSpaceType" />
+          <EntitySet Name="ParkingSubscriptions" EntityType="SpartanModel.ParkingSubscription" />
+          <EntitySet Name="TransactionTypes" EntityType="SpartanModel.TransactionType" />
+          <EntitySet Name="C__MigrationHistory" EntityType="SpartanModel.C__MigrationHistory" />
+          <EntitySet Name="ManageCarparks" EntityType="SpartanModel.ManageCarpark" />
+          <EntitySet Name="carparkmanagements" EntityType="SpartanModel.carparkmanagement" />
+        </EntityContainer>
+        <EntityType Name="AccountTransaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TransactionTypeId" Type="Guid" />
+          <Property Name="PayFrom" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PayTo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionTime" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="CarId" Type="Guid" />
+          <Property Name="CarParkId" Type="Guid" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DurationInMinutes" Type="Int32" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CarNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CarType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CarName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HasBluetooth" Type="Boolean" />
+          <Property Name="HasWiFi" Type="Boolean" />
+          <Property Name="Revision" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CarOwnership">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="CarId" Type="Guid" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="RegisteredBy" Type="Guid" />
+          <Property Name="RegisteredDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CarPark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="FacilityTypeId" Type="Guid" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarParkTypeId" Type="Guid" />
+          <Property Name="StreetNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StreetName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Altitude" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CarParkRateId" Type="Guid" />
+          <Property Name="TotalPakingSpace" Type="Int32" />
+          <Property Name="DisableParkingSpace" Type="Int32" />
+          <Property Name="LargeParkingSpace" Type="Int32" />
+          <Property Name="SmallParkingSpace" Type="Int32" />
+          <Property Name="IsCharge" Type="Boolean" />
+          <Property Name="IsManual" Type="Boolean" />
+          <Property Name="IsPublic" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CarParkingSpace">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ParkingSpaceId" Type="Guid" />
+          <Property Name="CarId" Type="Guid" />
+          <Property Name="ParkingStatus" Type="Int32" />
+          <Property Name="CarParkId" Type="Guid" />
+          <Property Name="EnterTime" Type="DateTime" Precision="3" />
+          <Property Name="LeaveTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CarParkRate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CarParkId" Type="Guid" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FeeRate" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="RangeLowerBound" Type="Int32" />
+          <Property Name="RangeUpperBound" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CarParkType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CustomerAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="AccountType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AccountNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="CVV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Door">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CarParkId" Type="Guid" />
+          <Property Name="DoorTypeID" Type="Guid" />
+          <Property Name="DoorName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HasBluetooth" Type="Boolean" />
+          <Property Name="HasWifi" Type="Boolean" />
+          <Property Name="HasNFC" Type="Boolean" />
+          <Property Name="BluetoothMAC" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BluetoothCompanyId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BluetoothUuid" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WiFiSsid" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WiFiMac" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WiFiPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NFCMAC" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IotId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DoorType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EntryRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="DoorId" Type="Guid" />
+          <Property Name="CarId" Type="Guid" />
+          <Property Name="EntryType" Type="Int32" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="EntryStatus" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FacilityType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Map">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CarParkId" Type="Guid" />
+          <Property Name="MapFileId" Type="Guid" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ParkingSpace">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CarParkId" Type="Guid" />
+          <Property Name="ParkingSpaceTypeId" Type="Guid" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ParkingTime" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarId" Type="Guid" />
+        </EntityType>
+        <EntityType Name="ParkingSpaceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ParkingSubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="SubscriberType" Type="Int32" />
+          <Property Name="SubscriberId" Type="Guid" />
+          <Property Name="SubscriptionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubscribedObjectType" Type="Int32" />
+          <Property Name="SubscribedObjectId" Type="Guid" />
+          <Property Name="EffectiveDate" Type="DateTime" Precision="3" />
+          <Property Name="Expiry" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedBy" Type="Guid" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TransactionType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ManageCarpark">
+          <Key>
+            <PropertyRef Name="CarparkId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="CarparkId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="carparkmanagement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="userid" Type="Guid" />
+          <Property Name="carparkid" Type="Guid" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SpartanModelStoreContainer" CdmEntityContainer="SpartanEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SpartanModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
+                <ScalarProperty Name="PasswordResetCode" ColumnName="PasswordResetCode" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Salutation" ColumnName="Salutation" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="LockToIP" ColumnName="LockToIP" />
+                <ScalarProperty Name="IsTermsAndConditionsAccepted" ColumnName="IsTermsAndConditionsAccepted" />
+                <ScalarProperty Name="TermsAndConditionsAcceptedDate" ColumnName="TermsAndConditionsAcceptedDate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LoginFailedCount" ColumnName="LoginFailedCount" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="SpartanModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="SpartanModel.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountTransactions">
+            <EntityTypeMapping TypeName="SpartanModel.AccountTransaction">
+              <MappingFragment StoreEntitySet="AccountTransaction">
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="DurationInMinutes" ColumnName="DurationInMinutes" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CarParkId" ColumnName="CarParkId" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+                <ScalarProperty Name="PayTo" ColumnName="PayTo" />
+                <ScalarProperty Name="PayFrom" ColumnName="PayFrom" />
+                <ScalarProperty Name="TransactionTypeId" ColumnName="TransactionTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountTypes">
+            <EntityTypeMapping TypeName="SpartanModel.AccountType">
+              <MappingFragment StoreEntitySet="AccountType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="SpartanModel.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="Revision" ColumnName="Revision" />
+                <ScalarProperty Name="HasWiFi" ColumnName="HasWiFi" />
+                <ScalarProperty Name="HasBluetooth" ColumnName="HasBluetooth" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CarName" ColumnName="CarName" />
+                <ScalarProperty Name="CarType" ColumnName="CarType" />
+                <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarOwnerships">
+            <EntityTypeMapping TypeName="SpartanModel.CarOwnership">
+              <MappingFragment StoreEntitySet="CarOwnership">
+                <ScalarProperty Name="RegisteredDate" ColumnName="RegisteredDate" />
+                <ScalarProperty Name="RegisteredBy" ColumnName="RegisteredBy" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarParks">
+            <EntityTypeMapping TypeName="SpartanModel.CarPark">
+              <MappingFragment StoreEntitySet="CarPark">
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="IsManual" ColumnName="IsManual" />
+                <ScalarProperty Name="IsCharge" ColumnName="IsCharge" />
+                <ScalarProperty Name="SmallParkingSpace" ColumnName="SmallParkingSpace" />
+                <ScalarProperty Name="LargeParkingSpace" ColumnName="LargeParkingSpace" />
+                <ScalarProperty Name="DisableParkingSpace" ColumnName="DisableParkingSpace" />
+                <ScalarProperty Name="TotalPakingSpace" ColumnName="TotalPakingSpace" />
+                <ScalarProperty Name="CarParkRateId" ColumnName="CarParkRateId" />
+                <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="Altitude" ColumnName="Altitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+                <ScalarProperty Name="CarParkTypeId" ColumnName="CarParkTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FacilityTypeId" ColumnName="FacilityTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarParkingSpaces">
+            <EntityTypeMapping TypeName="SpartanModel.CarParkingSpace">
+              <MappingFragment StoreEntitySet="CarParkingSpace">
+                <ScalarProperty Name="LeaveTime" ColumnName="LeaveTime" />
+                <ScalarProperty Name="EnterTime" ColumnName="EnterTime" />
+                <ScalarProperty Name="CarParkId" ColumnName="CarParkId" />
+                <ScalarProperty Name="ParkingStatus" ColumnName="ParkingStatus" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="ParkingSpaceId" ColumnName="ParkingSpaceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarParkRates">
+            <EntityTypeMapping TypeName="SpartanModel.CarParkRate">
+              <MappingFragment StoreEntitySet="CarParkRate">
+                <ScalarProperty Name="RangeUpperBound" ColumnName="RangeUpperBound" />
+                <ScalarProperty Name="RangeLowerBound" ColumnName="RangeLowerBound" />
+                <ScalarProperty Name="FeeRate" ColumnName="FeeRate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CarParkId" ColumnName="CarParkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarParkTypes">
+            <EntityTypeMapping TypeName="SpartanModel.CarParkType">
+              <MappingFragment StoreEntitySet="CarParkType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerAccounts">
+            <EntityTypeMapping TypeName="SpartanModel.CustomerAccount">
+              <MappingFragment StoreEntitySet="CustomerAccount">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CVV" ColumnName="CVV" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doors">
+            <EntityTypeMapping TypeName="SpartanModel.Door">
+              <MappingFragment StoreEntitySet="Door">
+                <ScalarProperty Name="IotId" ColumnName="IotId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NFCMAC" ColumnName="NFCMAC" />
+                <ScalarProperty Name="WiFiPassword" ColumnName="WiFiPassword" />
+                <ScalarProperty Name="WiFiMac" ColumnName="WiFiMac" />
+                <ScalarProperty Name="WiFiSsid" ColumnName="WiFiSsid" />
+                <ScalarProperty Name="BluetoothUuid" ColumnName="BluetoothUuid" />
+                <ScalarProperty Name="BluetoothCompanyId" ColumnName="BluetoothCompanyId" />
+                <ScalarProperty Name="BluetoothMAC" ColumnName="BluetoothMAC" />
+                <ScalarProperty Name="HasNFC" ColumnName="HasNFC" />
+                <ScalarProperty Name="HasWifi" ColumnName="HasWifi" />
+                <ScalarProperty Name="HasBluetooth" ColumnName="HasBluetooth" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="DoorName" ColumnName="DoorName" />
+                <ScalarProperty Name="DoorTypeID" ColumnName="DoorTypeID" />
+                <ScalarProperty Name="CarParkId" ColumnName="CarParkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoorTypes">
+            <EntityTypeMapping TypeName="SpartanModel.DoorType">
+              <MappingFragment StoreEntitySet="DoorType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntryRecords">
+            <EntityTypeMapping TypeName="SpartanModel.EntryRecord">
+              <MappingFragment StoreEntitySet="EntryRecord">
+                <ScalarProperty Name="EntryStatus" ColumnName="EntryStatus" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="EntryType" ColumnName="EntryType" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="DoorId" ColumnName="DoorId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FacilityTypes">
+            <EntityTypeMapping TypeName="SpartanModel.FacilityType">
+              <MappingFragment StoreEntitySet="FacilityType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maps">
+            <EntityTypeMapping TypeName="SpartanModel.Map">
+              <MappingFragment StoreEntitySet="Map">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="MapFileId" ColumnName="MapFileId" />
+                <ScalarProperty Name="CarParkId" ColumnName="CarParkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingSpaces">
+            <EntityTypeMapping TypeName="SpartanModel.ParkingSpace">
+              <MappingFragment StoreEntitySet="ParkingSpace">
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ParkingTime" ColumnName="ParkingTime" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParkingSpaceTypeId" ColumnName="ParkingSpaceTypeId" />
+                <ScalarProperty Name="CarParkId" ColumnName="CarParkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingSpaceTypes">
+            <EntityTypeMapping TypeName="SpartanModel.ParkingSpaceType">
+              <MappingFragment StoreEntitySet="ParkingSpaceType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingSubscriptions">
+            <EntityTypeMapping TypeName="SpartanModel.ParkingSubscription">
+              <MappingFragment StoreEntitySet="ParkingSubscription">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="Expiry" ColumnName="Expiry" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="SubscribedObjectId" ColumnName="SubscribedObjectId" />
+                <ScalarProperty Name="SubscribedObjectType" ColumnName="SubscribedObjectType" />
+                <ScalarProperty Name="SubscriptionType" ColumnName="SubscriptionType" />
+                <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
+                <ScalarProperty Name="SubscriberType" ColumnName="SubscriberType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionTypes">
+            <EntityTypeMapping TypeName="SpartanModel.TransactionType">
+              <MappingFragment StoreEntitySet="TransactionType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="SpartanModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManageCarparks">
+            <EntityTypeMapping TypeName="SpartanModel.ManageCarpark">
+              <MappingFragment StoreEntitySet="ManageCarpark">
+                <ScalarProperty Name="CarparkId" ColumnName="CarparkId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="carparkmanagements">
+            <EntityTypeMapping TypeName="SpartanModel.carparkmanagement">
+              <MappingFragment StoreEntitySet="carparkmanagement">
+                <ScalarProperty Name="carparkid" ColumnName="carparkid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
